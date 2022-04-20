@@ -1,40 +1,19 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Router, Response, Request } from "express/";
-=======
 import { Router, Response, Request } from "express";
 
->>>>>>> f4d5a94 (removes / form import 'express')
-=======
-import { Router, Response, Request } from "express";
->>>>>>> dev
 import {
   createUser,
+  deleteUser,
   getAllUser,
   getUser,
+  loginUser,
   updateUser,
-} from "../controllers/users";
+} from "../controllers/userController";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f4d5a94 (removes / form import 'express')
-=======
->>>>>>> dev
 const userRouter = Router();
 
-const responseTest = (req: Request, res: Response) => {
-  res.send(req.hostname + req.baseUrl + req.url);
-};
 userRouter.route("/").get(getAllUser).post(createUser);
-userRouter.route("/:id").get(getUser).put(updateUser).delete(responseTest);
+userRouter.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
-
-userRouter.route("/").get(getAllUser).post(createUser);
-userRouter.route("/:id").get(getUser).put(updateUser).delete(responseTest);
-
-userRouter.post("/login", responseTest);
+userRouter.post("/login", loginUser);
 
 export default userRouter;
