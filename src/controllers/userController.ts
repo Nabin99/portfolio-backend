@@ -12,9 +12,9 @@ interface NewUserTypes extends ReadableStream<Uint8Array> {
 
 export const createUser = async (req: Request, res: Response) => {
   let { name, email, contact, role, password } = req.body as NewUserTypes;
-  password = encrypt(req.body.password) as unknown as string;
-
   try {
+    password = await encrypt(req.body.password);
+
     const dbRes = await new UserModel({
       name,
       email,
@@ -52,10 +52,13 @@ export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const dbRes = await UserModel.findOne({ email });
+    const dbRes = await UserModel.findOne({ email: email });
     if (dbRes) {
-      if (validateEncryption(password, dbRes.password) as unknown)
+      if (await validateEncryption(password, dbRes.password))
         res.status(200).send(dbRes);
+      else res.status(401).send({ message: "invalid password" });
+    } else {
+      res.status(404).send({ message: "user not found" });
     }
   } catch (err) {
     res.status(404).send(err);
@@ -67,9 +70,10 @@ export const updateUser = async (req: Request, res: Response) => {
   let { name, email, contact, role, password } = req.body as NewUserTypes & {
     id: string;
   };
-  password = encrypt(req.body.password) as unknown as string;
 
   try {
+    password = await encrypt(req.body.password);
+
     const dbRes = await UserModel.updateOne(
       { _id: id },
       { name, email, contact, role, password }
@@ -88,7 +92,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   };
 
   try {
-    const dbRes = UserModel.findOneAndRemove({ _id: id });
+    const dbRes = await UserModel.findOneAndRemove({ _id: id });
     res.status(200).send(dbRes);
   } catch (err) {
     res.status(404).send(err);
