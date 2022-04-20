@@ -1,6 +1,7 @@
 import UserModel from "../models/UserModel";
 import { Request, Response } from "express";
 import { encrypt, validateEncryption } from "../utils/encryption";
+import { errorResponse, okResponse } from "../helpers/response";
 
 interface NewUserTypes extends ReadableStream<Uint8Array> {
   name: string;
@@ -22,8 +23,15 @@ export const createUser = async (req: Request, res: Response) => {
       role,
       password,
     }).save();
-    res.status(201).send(dbRes);
-  } catch (err) {
+    okResponse({ data: dbRes, req, res, status: 201 });
+  } catch (err: any) {
+    errorResponse({
+      data: err,
+      req,
+      res,
+      status: 400,
+      message: "An Error Occured!",
+    });
     res.status(400).send(err);
   }
 };
@@ -84,7 +92,6 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-
 export const deleteUser = async (req: Request, res: Response) => {
   const id = req.params.id;
   const { name, email, contact, role, password } = req.body as NewUserTypes & {
@@ -98,4 +105,3 @@ export const deleteUser = async (req: Request, res: Response) => {
     res.status(404).send(err);
   }
 };
-
