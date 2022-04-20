@@ -1,5 +1,6 @@
-import UserModel from "../models/Users";
+import UserModel from "../models/UserModel";
 import { Request, Response } from "express";
+import { encrypt, validateEncryption } from "../utils/encryption";
 
 interface NewUserTypes extends ReadableStream<Uint8Array> {
   name: string;
@@ -10,7 +11,8 @@ interface NewUserTypes extends ReadableStream<Uint8Array> {
 }
 
 export const createUser = async (req: Request, res: Response) => {
-  const { name, email, contact, role, password } = req.body as NewUserTypes;
+  let { name, email, contact, role, password } = req.body as NewUserTypes;
+  password = encrypt(req.body.password) as unknown as string;
 
   try {
     const dbRes = await new UserModel({
@@ -50,8 +52,11 @@ export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const dbRes = await UserModel.findOne({ $and: [{ email }, { password }] });
-    res.status(200).send(dbRes);
+    const dbRes = await UserModel.findOne({ email });
+    if (dbRes) {
+      if (validateEncryption(password, dbRes.password) as unknown)
+        res.status(200).send(dbRes);
+    }
   } catch (err) {
     res.status(404).send(err);
   }
@@ -59,9 +64,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const { name, email, contact, role, password } = req.body as NewUserTypes & {
+  let { name, email, contact, role, password } = req.body as NewUserTypes & {
     id: string;
   };
+  password = encrypt(req.body.password) as unknown as string;
 
   try {
     const dbRes = await UserModel.updateOne(
