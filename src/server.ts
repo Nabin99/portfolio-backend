@@ -4,6 +4,7 @@ import userRouter from "./routes/user";
 
 const app: Express = express();
 config.connectDatabase();
+app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
