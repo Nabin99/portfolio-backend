@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { Router, Response, Request } from "express/";
+=======
+import { Router, Response, Request } from "express";
+
+>>>>>>> f4d5a94 (removes / form import 'express')
 import {
   createUser,
   getAllUser,
@@ -6,8 +11,11 @@ import {
   updateUser,
 } from "../controllers/users";
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f4d5a94 (removes / form import 'express')
 const userRouter = Router();
 
 const responseTest = (req: Request, res: Response) => {
