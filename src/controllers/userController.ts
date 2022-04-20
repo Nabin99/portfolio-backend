@@ -79,3 +79,19 @@ export const updateUser = async (req: Request, res: Response) => {
     res.status(404).send(err);
   }
 };
+
+
+export const deleteUser = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const { name, email, contact, role, password } = req.body as NewUserTypes & {
+    id: string;
+  };
+
+  try {
+    const dbRes = UserModel.findOneAndRemove({ _id: id });
+    res.status(200).send(dbRes);
+  } catch (err) {
+    res.status(404).send(err);
+  }
+};
+
