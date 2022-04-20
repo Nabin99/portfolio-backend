@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import config from "./config/config";
-import userRouter from "./routes/user";
+import userRouter from "./routes/userRoute";
 
 const app: Express = express();
 config.connectDatabase();
