@@ -13,7 +13,7 @@ export const createUser = async (req: Request, res: Response) => {
   const { name, email, contact, role, password } = req.body as NewUserTypes;
 
   try {
-    const dbRes = new UserModel({
+    const dbRes = await new UserModel({
       name,
       email,
       contact,
@@ -28,7 +28,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getAllUser = async (req: Request, res: Response) => {
   try {
-    const dbRes = UserModel.find({});
+    const dbRes = await UserModel.find({});
     res.status(200).send(dbRes);
   } catch (err) {
     res.status(404).send(err);
@@ -39,7 +39,7 @@ export const getUser = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const dbRes = UserModel.findById(id);
+    const dbRes = await UserModel.findById(id);
     res.status(200).send(dbRes);
   } catch (err) {
     res.status(404).send(err);
@@ -50,7 +50,7 @@ export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const dbRes = UserModel.findOne({ $and: [{ email }, { password }] });
+    const dbRes = await UserModel.findOne({ $and: [{ email }, { password }] });
     res.status(200).send(dbRes);
   } catch (err) {
     res.status(404).send(err);
@@ -64,7 +64,7 @@ export const updateUser = async (req: Request, res: Response) => {
   };
 
   try {
-    const dbRes = UserModel.updateOne(
+    const dbRes = await UserModel.updateOne(
       { _id: id },
       { name, email, contact, role, password }
     );
