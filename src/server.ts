@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import config from "./config/config";
+import userRouter from "./routes/user";
 
 const app: Express = express();
 config.connectDatabase();
@@ -7,6 +8,7 @@ config.connectDatabase();
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
+app.use("/users", userRouter);
 
 app.listen(config.PORT, () => {
   console.log(
