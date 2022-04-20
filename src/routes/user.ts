@@ -6,6 +6,8 @@ import {
   updateUser,
 } from "../controllers/users";
 
+
+
 const userRouter = Router();
 
 const responseTest = (req: Request, res: Response) => {
@@ -13,6 +15,11 @@ const responseTest = (req: Request, res: Response) => {
 };
 userRouter.route("/").get(getAllUser).post(createUser);
 userRouter.route("/:id").get(getUser).put(updateUser).delete(responseTest);
+
+
+userRouter.route("/").get(getAllUser).post(createUser);
+userRouter.route("/:id").get(getUser).put(updateUser).delete(responseTest);
+
 userRouter.post("/login", responseTest);
 
 export default userRouter;
