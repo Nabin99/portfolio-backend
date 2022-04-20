@@ -27,8 +27,10 @@ const UserModel = model(
         type: String,
       },
     },
+
     {
       timestamps: true,
+      validateBeforeSave: true,
     }
   )
 );
