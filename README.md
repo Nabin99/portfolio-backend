@@ -6,17 +6,20 @@ This is a server app project for the portfolio app Nabin Dhital, created using n
 
 ```
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.3.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.25",
     "concurrently": "^7.1.0",
     "nodemon": "^2.0.15",
     "typescript": "^4.6.3"
   }
+  
 ```
 
 ## Available Scripts
