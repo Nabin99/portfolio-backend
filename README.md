@@ -11,7 +11,8 @@ This is a server app project for the portfolio app Nabin Dhital, created using n
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.0"
+    "mongoose": "^6.3.0",
+    "nodemailer": "^6.7.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -19,6 +20,7 @@ This is a server app project for the portfolio app Nabin Dhital, created using n
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.25",
+    "@types/nodemailer": "^6.4.4",
     "concurrently": "^7.1.0",
     "nodemon": "^2.0.15",
     "typescript": "^4.6.3"
