@@ -15,7 +15,14 @@ const connectDatabase = async () => {
   }
 };
 
-mongoose.connect(uri).then().catch();
+mongoose
+  .connect(uri)
+  .then(() => {
+    console.log("Its ok");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const config = {
   PORT,

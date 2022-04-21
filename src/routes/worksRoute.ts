@@ -5,6 +5,8 @@ import {
   getAllWorks,
   getWorks,
   updateWorks,
+  getReqWorks,
+  fetchGithubData,
 } from "../controllers/worksController";
 import { authenticateAccessToken } from "../middlewares/authenticateToken";
 
@@ -15,5 +17,11 @@ WorksRouter.route("/:id")
   .get(getWorks)
   .put(authenticateAccessToken, updateWorks)
   .delete(authenticateAccessToken, deleteWorks);
+WorksRouter.get("/list/:id", getReqWorks);
+
+const SourceRoutes = Router();
+WorksRouter.use("/fetch", SourceRoutes);
+
+SourceRoutes.get("/github", fetchGithubData);
 
 export default WorksRouter;
