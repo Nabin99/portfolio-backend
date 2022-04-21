@@ -20,7 +20,6 @@ const WorksModel = model(
       },
       description: {
         type: String,
-        required: true,
       },
       projectLink: {
         type: String,

@@ -160,10 +160,11 @@ export const getReqWorks = async (req: Request, res: Response) => {
 };
 
 export const fetchGithubData = async (req: Request, res: Response) => {
-  let resData: any[];
   try {
-    resData = await axios.get("https://api.github.com/users/Nabin99/repos");
-    const postData = resData.map((obj) => ({
+    const { data: resData } = await axios.get(
+      "https://api.github.com/users/Nabin99/repos"
+    );
+    const postData = resData.map((obj: any) => ({
       description: obj.description,
       projectDate: obj.created_at,
       title: obj.name,

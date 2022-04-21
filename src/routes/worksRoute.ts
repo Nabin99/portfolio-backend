@@ -1,4 +1,4 @@
-import { Router, Response, Request } from "express";
+import { Router } from "express";
 import {
   addWorks,
   deleteWorks,
@@ -17,7 +17,7 @@ WorksRouter.route("/:id")
   .get(getWorks)
   .put(authenticateAccessToken, updateWorks)
   .delete(authenticateAccessToken, deleteWorks);
-WorksRouter.get("/list/:id", getReqWorks);
+WorksRouter.get("/list/:number", getReqWorks);
 
 const SourceRoutes = Router();
 WorksRouter.use("/fetch", SourceRoutes);
