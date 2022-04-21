@@ -1,6 +1,5 @@
 import { Router, Response, Request } from "express";
 
-
 import {
   createUser,
   deleteUser,
@@ -9,13 +8,17 @@ import {
   loginUser,
   updateUser,
 } from "../controllers/userController";
+import { authenticateAccessToken } from "../middlewares/authenticateToken";
 
 const userRouter = Router();
 
-userRouter.route("/").get(getAllUser).post(createUser);
-userRouter.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
+userRouter.route("/").get(authenticateAccessToken, getAllUser).post(createUser);
+userRouter
+  .route("/:id")
+  .get(authenticateAccessToken, getUser)
+  .put(authenticateAccessToken, updateUser)
+  .delete(authenticateAccessToken, deleteUser);
 
 userRouter.post("/login", loginUser);
-
 
 export default userRouter;
