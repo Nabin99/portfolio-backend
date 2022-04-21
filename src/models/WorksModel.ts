@@ -9,9 +9,10 @@ const WorksModel = model(
         type: String,
         required: true,
         uppercase: true,
+        unique: true,
       },
       coverImage: {
-        type: ImageData,
+        type: String,
       },
       projectDate: {
         type: Date,
