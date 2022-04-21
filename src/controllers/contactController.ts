@@ -12,14 +12,21 @@ interface NewContactTypes extends ReadableStream<Uint8Array> {
 export const addContact = async (req: Request, res: Response) => {
   let { name, email, message } = req.body as NewContactTypes;
   try {
-    const dbRes = await new ContactModel({
+    let dbRes = await new ContactModel({
       name,
       email,
       message,
     }).save();
 
-    mailer(email, name);
-
+    if ((await mailer(email, name)) as unknown) {
+      await ContactModel.findByIdAndUpdate(
+        dbRes._id,
+        {
+          mailSent: true,
+        },
+        { new: true }
+      );
+    }
     okResponse({ data: dbRes, req, res, status: 201 });
   } catch (err: any) {
     errorResponse({

@@ -19,6 +19,11 @@ const ContactModel = model(
         type: String,
         required: true,
       },
+      mailSent: {
+        type: Boolean,
+        default: false,
+        required: true,
+      },
     },
 
     {
