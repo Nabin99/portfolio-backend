@@ -6,6 +6,7 @@ This is a server app project for the portfolio app Nabin Dhital, created using n
 
 ```
   "dependencies": {
+    "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -42,7 +43,7 @@ You will also see any lint errors in the console.
 
 ### `npm run start`
 
-runs the buit project
+runs the built project
 
 ### `npm run build`
 
