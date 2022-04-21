@@ -2,6 +2,10 @@ import UserModel from "../models/UserModel";
 import { Request, Response } from "express";
 import { encrypt, validateEncryption } from "../utils/encryption";
 import { errorResponse, okResponse } from "../helpers/response";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../utils/generateToken";
 
 interface NewUserTypes extends ReadableStream<Uint8Array> {
   name: string;
@@ -87,14 +91,19 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const dbRes = await UserModel.findOne({ email: email });
     if (dbRes) {
-      if (await validateEncryption(password, dbRes.password))
+      const { name, email, address, role } = dbRes;
+      if (await validateEncryption(password, dbRes.password)) {
         okResponse({
-          data: dbRes,
+          data: {
+            dbRes,
+            accessToken: generateAccessToken({ name, email, address, role }),
+            refreshToken: generateRefreshToken({ name, email, address, role }),
+          },
           req,
           res,
           status: 200,
         });
-      else
+      } else
         errorResponse({
           data: [],
           description: "An error Occured!",
