@@ -1,22 +1,23 @@
 import { Router, Response, Request } from "express";
+import {
+  addContact,
+  deleteContact,
+  getAllContact,
+  getContact,
+  updateContact,
+} from "../controllers/contactController";
 import { authenticateAccessToken } from "../middlewares/authenticateToken";
 
 const contactRouter = Router();
 
-const testRoute = (req: Request, res: Response) => {
-  res.send(req.hostname + req.baseUrl + req.path);
-};
-
 contactRouter
   .route("/")
-  .get(authenticateAccessToken, testRoute)
-  .post(testRoute);
+  .get(authenticateAccessToken, getAllContact)
+  .post(addContact);
 contactRouter
   .route("/:id")
-  .get(authenticateAccessToken, testRoute)
-  .put(authenticateAccessToken, testRoute)
-  .delete(authenticateAccessToken, testRoute);
-
-contactRouter.post("/login", testRoute);
+  .get(authenticateAccessToken, getContact)
+  .put(authenticateAccessToken, updateContact)
+  .delete(authenticateAccessToken, deleteContact);
 
 export default contactRouter;
