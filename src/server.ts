@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import config from "./config/config";
 import userRouter from "./routes/userRoute";
+import contactRouter from "./routes/contactRoute";
 
 const app: Express = express();
 config.connectDatabase();
@@ -16,7 +17,8 @@ app.use(express.json());
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
-app.use("/users", userRouter);
+app.use("/user", userRouter);
+app.use("/contact", contactRouter);
 
 app.listen(config.PORT, () => {
   console.log(
