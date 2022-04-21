@@ -3,6 +3,7 @@ import cors from "cors";
 import config from "./config/config";
 import userRouter from "./routes/userRoute";
 import contactRouter from "./routes/contactRoute";
+import WorksRouter from "./routes/worksRoute";
 
 const app: Express = express();
 config.connectDatabase();
@@ -19,6 +20,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 app.use("/user", userRouter);
 app.use("/contact", contactRouter);
+app.use("/works", WorksRouter);
 
 app.listen(config.PORT, () => {
   console.log(
