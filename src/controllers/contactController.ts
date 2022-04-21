@@ -1,6 +1,7 @@
 import ContactModel from "../models/ContactModel";
 import { Request, Response } from "express";
 import { errorResponse, okResponse } from "../helpers/response";
+import { mailer } from "../utils/mailer";
 
 interface NewContactTypes extends ReadableStream<Uint8Array> {
   name: string;
@@ -16,6 +17,9 @@ export const addContact = async (req: Request, res: Response) => {
       email,
       message,
     }).save();
+
+    mailer(email, name);
+
     okResponse({ data: dbRes, req, res, status: 201 });
   } catch (err: any) {
     errorResponse({
