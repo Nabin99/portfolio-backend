@@ -7,7 +7,7 @@ import contactRouter from "./routes/contactRoute";
 const app: Express = express();
 config.connectDatabase();
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "*",
   optionsSuccessStatus: 200,
 };
 
