@@ -5,27 +5,26 @@ This is a server app project for the portfolio app Nabin Dhital, created using n
 ## Packages Used
 
 ```
-  "dependencies": {
-    "axios": "^0.26.1",
-    "bcrypt": "^5.0.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
-    "express": "^4.17.3",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.0",
-    "nodemailer": "^6.7.3"
-  },
-  "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.13",
-    "@types/jsonwebtoken": "^8.5.8",
-    "@types/node": "^17.0.25",
-    "@types/nodemailer": "^6.4.4",
-    "concurrently": "^7.1.0",
-    "nodemon": "^2.0.15",
-    "typescript": "^4.6.3"
-  }
+  dependencies
+    "axios",
+    "bcrypt",
+    "cors",
+    "dotenv",
+    "express",
+    "jsonwebtoken",
+    "mongoose",
+    "nodemailer"
+
+  devDependencies
+    "@types/bcrypt",
+    "@types/cors",
+    "@types/express",
+    "@types/jsonwebtoken",
+    "@types/node",
+    "@types/nodemailer",
+    "concurrently",
+    "nodemon",
+    "typescript"
   
 ```
 
