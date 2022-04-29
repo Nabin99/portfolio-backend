@@ -1,7 +1,7 @@
 import ContactModel from "../models/ContactModel";
 import { Request, Response } from "express";
 import { errorResponse, okResponse } from "../helpers/response";
-import { mailer } from "../utils/mailer";
+import { mailer, mailerAdmin } from "../utils/mailer";
 
 interface NewContactTypes extends ReadableStream<Uint8Array> {
   name: string;
@@ -18,7 +18,8 @@ export const addContact = async (req: Request, res: Response) => {
       message,
     }).save();
 
-    if ((await mailer(email, name)) as unknown) {
+    
+    if ((await mailer(email, name)) as unknown && await mailerAdmin({name,email,message}) as unknown ) {
       await ContactModel.findByIdAndUpdate(
         dbRes._id,
         {

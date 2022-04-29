@@ -8,7 +8,7 @@ import WorksRouter from "./routes/worksRoute";
 const app: Express = express();
 config.connectDatabase();
 const corsOptions = {
-  origin: ["http://192.168.1.70:3000","http://localhost:3000"],
+  origin: ["http://192.168.1.70:3000","http://localhost:3000","http://192.168.1.69:3000"],
   optionsSuccessStatus: 200,
 };
 
